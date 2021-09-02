@@ -20,7 +20,6 @@ public final class Language implements Iterable<String>, java.io.Serializable {
 
     /**
      * Create a language with no strings.
-     * Git Hub Test #2
      */
     public Language() {
 

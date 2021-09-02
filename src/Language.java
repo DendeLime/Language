@@ -1,7 +1,5 @@
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
 /**
  * Represents a finite language.
  *
@@ -22,6 +20,7 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * Create a language with no strings.
      */
     public Language() {
+        strings = new TreeSet<String>();
 
     }
 
@@ -31,8 +30,9 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      *         false otherwise
      */
     public boolean isEmpty() {
-        //TODO
-        return false;
+
+        boolean value = strings.equals(EMPTY_SET);
+        return value;
     }
 
     /**
@@ -40,8 +40,8 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * @return the cardinality of the language
      */
     public int cardinality() {
-        //TODO
-        return Integer.MIN_VALUE;
+        int count = strings.size();
+        return count;
     }
 
     /**

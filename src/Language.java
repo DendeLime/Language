@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Represents a finite language.
@@ -11,7 +12,7 @@ public final class Language implements Iterable<String>, java.io.Serializable {
     /** The empty string. */
     private static final String EMPTY_STRING = "";
     /** The empty set. */
-    private static final Set<String> EMPTY_SET = new TreeSet<String>();
+    private static final Set<String> EMPTY_SET = new TreeSet<>();
 
     /** The set of strings in this language, initially empty. */
     private Set<String> strings;
@@ -20,6 +21,7 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * Create a language with no strings.
      */
     public Language() {
+
         strings = new TreeSet<String>();
 
     }
@@ -31,8 +33,14 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      */
     public boolean isEmpty() {
 
-        boolean value = strings.equals(EMPTY_SET);
+        boolean value = false;
+
+        if (strings.isEmpty()) {
+            value = true;
+        }
         return value;
+
+
     }
 
     /**
@@ -40,7 +48,15 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * @return the cardinality of the language
      */
     public int cardinality() {
-        int count = strings.size();
+        int count;
+
+        if (isEmpty()) {
+            count = 0;
+            return count;
+        }
+        else {
+            count = strings.size();
+        }
         return count;
     }
 
@@ -51,8 +67,17 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      *         false if not in the language or the parameter is null
      */
     public boolean includes(final String candidate) {
-        //TODO
-        return false;
+        boolean check = false;
+
+        if (candidate.equals(null)) {
+            return check;
+        }
+        else if (strings.contains(candidate)) {
+            check = true;
+            return check;
+        }
+
+        return check;
     }
 
     /**
@@ -62,7 +87,12 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * @return true if this language changed as a result of the call
      */
     public boolean addString(final String memberString) {
-        //TODO
+
+        strings.add(memberString);
+
+        if (strings.contains(memberString)) {
+            return true;
+        }
         return false;
     }
 
@@ -73,8 +103,13 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * @return true if this language changed as a result of the call
      */
     public boolean addAllStrings(final Collection<String> memberStrings) {
-        //TODO
-        return false;
+
+            int count = strings.size();
+            strings.addAll(memberStrings);
+            if (count < strings.size()) {
+                return true;
+            }
+            return false;
     }
 
     /**
@@ -82,8 +117,8 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * @return an iterator over the strings in this language in ascending order
      */
     public Iterator<String> iterator() {
-        //TODO
-        return null;
+        Iterator recur = strings.iterator();
+        return recur;
     }
 
     /**
@@ -93,20 +128,37 @@ public final class Language implements Iterable<String>, java.io.Serializable {
      * @return the concatenation of this language with the parameter language
      */
     public Language concatenate(final Language language) {
-        //TODO
-        return null;
+
+        if (language.isEmpty()) {
+           return language;
+        }
+
+        language.addAllStrings(strings);
+
+        return language;
+
     }
 
     @Override
     public boolean equals(final Object obj) {
+        System.out.println(strings);
         if (obj instanceof Language) {
-            //TODO
+            return true;
+        }
+        if (obj.hashCode() == strings.hashCode()) {
+            if(obj.equals(strings)) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         return false;
     }
     @Override
     public int hashCode() {
-        //TODO
-        return Integer.MIN_VALUE;
+        int hash = 9;
+        hash = 19 * hash + strings.hashCode();
+        return hash;
     }
 }

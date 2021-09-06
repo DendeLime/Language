@@ -21,8 +21,8 @@ public class LanguageTest {
      */
     @Test
     public void isEmptyTest() {
-        assertTrue(EMPTY_LANG.isEmpty());
         Language lang = new Language();
+        assertTrue(EMPTY_LANG.isEmpty());
         assertTrue(lang.isEmpty());
         lang.addString(EMPTY_STRING);
         assertFalse(lang.isEmpty());
